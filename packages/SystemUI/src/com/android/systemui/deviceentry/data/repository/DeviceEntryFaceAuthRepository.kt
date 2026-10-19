@@ -743,10 +743,10 @@ constructor(
         const val DEFAULT_CANCEL_SIGNAL_TIMEOUT = 3000L
 
         /** Number of allowed retries whenever there is a face hardware error */
-        const val HAL_ERROR_RETRY_MAX = 5
+        const val HAL_ERROR_RETRY_MAX = 2
 
         /** Timeout before retries whenever there is a HAL error. */
-        const val HAL_ERROR_RETRY_TIMEOUT = 500L // ms
+        const val HAL_ERROR_RETRY_TIMEOUT = 1500L // ms
     }
 
     override fun dump(pw: PrintWriter, args: Array<out String>) {
