@@ -18,6 +18,7 @@ package android.hardware.camera2.params;
 
 import static com.android.internal.util.Preconditions.checkArrayElementsNotNull;
 
+import android.compat.annotation.UnsupportedAppUsage;
 import android.graphics.ImageFormat;
 import android.graphics.PixelFormat;
 import android.hardware.DataSpace;
@@ -72,6 +73,47 @@ public final class StreamConfigurationMap {
     private static final String TAG = "StreamConfigurationMap";
 
     private static final int MAX_DIMEN_FOR_ROUNDING = 1920; // maximum allowed width for rounding
+
+    /**
+     * Create a new {@link StreamConfigurationMap}.
+     *
+     * <p>Backwards-compatible overload for apps built against Android 13 and earlier, which
+     * construct this class through reflection and are not aware of the JPEG/R and HEIC Ultra
+     * HDR stream configurations. Those configuration sets were added to the platform
+     * constructor, so keep this signature around to avoid breaking existing prebuilt apps.
+     *
+     * @hide
+     */
+    @UnsupportedAppUsage
+    public StreamConfigurationMap(
+            StreamConfiguration[] configurations,
+            StreamConfigurationDuration[] minFrameDurations,
+            StreamConfigurationDuration[] stallDurations,
+            StreamConfiguration[] depthConfigurations,
+            StreamConfigurationDuration[] depthMinFrameDurations,
+            StreamConfigurationDuration[] depthStallDurations,
+            StreamConfiguration[] dynamicDepthConfigurations,
+            StreamConfigurationDuration[] dynamicDepthMinFrameDurations,
+            StreamConfigurationDuration[] dynamicDepthStallDurations,
+            StreamConfiguration[] heicConfigurations,
+            StreamConfigurationDuration[] heicMinFrameDurations,
+            StreamConfigurationDuration[] heicStallDurations,
+            HighSpeedVideoConfiguration[] highSpeedVideoConfigurations,
+            ReprocessFormatsMap inputOutputFormatsMap,
+            boolean listHighResolution) {
+        this(
+                configurations, minFrameDurations, stallDurations,
+                depthConfigurations, depthMinFrameDurations, depthStallDurations,
+                dynamicDepthConfigurations, dynamicDepthMinFrameDurations,
+                dynamicDepthStallDurations,
+                heicConfigurations, heicMinFrameDurations, heicStallDurations,
+                /*jpegRConfigurations*/ null, /*jpegRMinFrameDurations*/ null,
+                /*jpegRStallDurations*/ null,
+                /*heicUltraHDRConfigurations*/ null, /*heicUltraHDRMinFrameDurations*/ null,
+                /*heicUltraHDRStallDurations*/ null,
+                highSpeedVideoConfigurations, inputOutputFormatsMap,
+                listHighResolution, /*enforceImplementationDefined*/ false);
+    }
 
     /**
      * Create a new {@link StreamConfigurationMap}.
